@@ -33,7 +33,17 @@ const App = () => {
     note.idx === idx ? { ...note, title: updatedTitle, info: updatedInfo } : note
   ));
 };
+  const handleAddNote = () => {
+  const newNote = {
+    idx: Date.now(), // Generates a unique ID based on the timestamp
+    user: 'User',    // You can set a default or leave it blank
+    title: 'New Note',
+    info: 'Type your note here...'
+  };
 
+  setNotes([...notes, newNote]); // Adds the new note to the existing list
+  setSelectedNoteId(newNote.idx); // Automatically opens the new note
+};
   return (
     <div className='main'>
       {selectedNote ? (
@@ -45,10 +55,14 @@ const App = () => {
           onUpdate={handleUpdateClick}
         />
       ) : (
+        <>
+        {/* Added the "New Note" button here */}
+        <button className="add-btn" onClick={handleAddNote}>+ New Note</button>
         <NotesList
           notes={notes}
           onNoteClick={handleNoteClick}
         />
+      </>
       )}
     </div>
   );
