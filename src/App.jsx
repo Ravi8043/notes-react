@@ -28,6 +28,12 @@ const App = () => {
     note => note.idx === selectedNoteId
   );
 
+  const handleUpdateClick = (idx, updatedTitle, updatedInfo) => {
+  setNotes(notes.map(note => 
+    note.idx === idx ? { ...note, title: updatedTitle, info: updatedInfo } : note
+  ));
+};
+
   return (
     <div className='main'>
       {selectedNote ? (
@@ -36,6 +42,7 @@ const App = () => {
           isOpen={true}
           onBack={handleBackClick}
           onDelete={handleDeleteClick}
+          onUpdate={handleUpdateClick}
         />
       ) : (
         <NotesList
